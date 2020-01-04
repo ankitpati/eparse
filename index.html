@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <title>G-Parse</title>
+        <meta charset="utf-8">
+        <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PGcgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBkYXRhLW5hbWU9Imdsb2JlIj48cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHRyYW5zZm9ybT0icm90YXRlKDE4MCAxMiAxMikiIG9wYWNpdHk9IjAiLz48cGF0aCBkPSJNMjIgMTJBMTAgMTAgMCAwIDAgMTIgMmExMCAxMCAwIDAgMCAwIDIwIDEwIDEwIDAgMCAwIDEwLTEwem0tMi4wNy0xSDE3YTEyLjkxIDEyLjkxIDAgMCAwLTIuMzMtNi41NEE4IDggMCAwIDEgMTkuOTMgMTF6TTkuMDggMTNIMTVhMTEuNDQgMTEuNDQgMCAwIDEtMyA2LjYxQTExIDExIDAgMCAxIDkuMDggMTN6bTAtMkExMS40IDExLjQgMCAwIDEgMTIgNC40YTExLjE5IDExLjE5IDAgMCAxIDMgNi42em0uMzYtNi41N0ExMy4xOCAxMy4xOCAwIDAgMCA3LjA3IDExaC0zYTggOCAwIDAgMSA1LjM3LTYuNTd6TTQuMDcgMTNoM2ExMi44NiAxMi44NiAwIDAgMCAyLjM1IDYuNTZBOCA4IDAgMCAxIDQuMDcgMTN6bTEwLjU1IDYuNTVBMTMuMTQgMTMuMTQgMCAwIDAgMTcgMTNoMi45NWE4IDggMCAwIDEtNS4zMyA2LjU1eiIvPjwvZz48L2c+PC9zdmc+">
+        <meta name="Description" content="Split URLs like email clients; extract rulable domains thereof.">
+        <meta name="theme-color" content="#009688">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons" crossorigin="anonymous" rel="stylesheet">
+        <style>
+            :root {
+                --theme-color:#009688;--theme-color-txt:black;--theme-color-txt2:#009688;--body-color:teal;--error-color:#f44336;--error-color-txt:white;--button-color:#26a69a;--button-color-focus:#1d7d74;--button-color-hover:#2bbbad;--table-stripe-color:#f2f2f280;--card-panel-color:white;}
+
+            body {
+                background-color: var(--body-color);
+                color: var(--theme-color-txt);
+            }
+
+            .nav-wrapper {
+                background-color: var(--theme-color);
+            }
+
+            button {
+                width: 100%;
+            }
+
+            #superset {
+                margin-top: calc(50vh - 324px/2 - 68px/2);
+            }
+
+            table.striped > tbody > tr:nth-child(odd) {
+                background-color: var(--table-stripe-color);
+            }
+
+            td {
+                width: 50%;
+                word-break: break-all;
+            }
+
+            #failure {
+                background-color: var(--error-color);
+                color: var(--error-color-txt);
+            }
+
+            .card-panel {
+                background-color: var(--card-panel-color);
+            }
+
+            .input-field input {
+                color: var(--theme-color-txt) !important;
+            }
+
+            .input-field input[type=text]:focus+label {
+                color: var(--theme-color-txt2) !important;
+            }
+
+            .input-field input[type=text]:focus {
+                border-bottom: 1px solid var(--theme-color) !important;
+                box-shadow: 0 1px 0 0 var(--theme-color) !important;
+            }
+
+            button.btn {
+                background-color: var(--button-color);
+            }
+
+            button.btn:focus {
+                background-color: var(--button-color-focus);
+            }
+
+            button.btn:hover {
+                background-color: var(--button-color-hover);
+            }
+
+            .input-field .prefix.active {
+                color: var(--theme-color-txt2);
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --theme-color:black;--theme-color-txt:white;--theme-color-txt2:white;--body-color:#212121;--button-color:#222222;--button-color-focus:black;--button-color-hover:black;--table-stripe-color:#424242;--card-panel-color:#616161;}
+            }
+
+            @media print {
+                button {
+                    display: none !important;
+                }
+
+                #superset {
+                    margin-top: auto;
+                }
+
+                [class|="navbar"] {
+                    display: none !important;
+                }
+            }
+        </style>
+        <script>
+            "use strict";
+            $(function() {
+                $("#url").keypress(function(a) {
+                    if (a.which === "\r".codePointAt(0)) {
+                        setAnchorToURL()
+                    }
+                });
+                $("#submit").click(setAnchorToURL);
+                fetchResult()
+            });
+            window.onhashchange = fetchResult;
+            document.onselectionchange = function() {
+                const selection = document.getSelection()
+                  , selectedText = selection.toString()
+                  , selectedNode = selection.anchorNode;
+                if (selectedNode && selectedNode.parentNode.nodeName.toLowerCase() === "code" && selectedNode.isSameNode(selection.focusNode) && selectedText !== "") {
+                    $("#url").val(selectedText)
+                }
+            }
+            ;
+            function setAnchorToURL() {
+                window.location.hash = $("#url").val()
+            }
+            function fetchResult() {
+                $("#result").css("display", "none");
+                $("#failure").css("display", "none");
+                if (!window.location.hash) {
+                    return
+                }
+                let decodedURL = decodeURIComponent(window.location.hash.substring(1));
+                $("#url").val(decodedURL);
+                $("label[for='url']").removeClass().addClass("active");
+                if (decodedURL === "robots.txt") {
+                    decodedURL = "Robots.txt"
+                }
+                $.ajax({
+                    type: "GET",
+                    url: "/" + encodeURIComponent(decodedURL),
+                    dataType: "json",
+                    success: displayResult,
+                    error: displayError
+                })
+            }
+            ;function displayResult(a) {
+                $("#scheme").text(a.scheme);
+                $("#username").text(a.username);
+                $("#password").text(a.password);
+                $("#hostname").text(a.hostname);
+                $("#port").text(a.port);
+                $("#path").text(a.path);
+                $("#query").text(a.query);
+                $("#anchor").text(a.anchor);
+                $("#domain").text(a.domain);
+                $("#public-suffix").text(a.public_suffix);
+                $("#is-rulable").text(a.is_rulable ? "Yes" : "No");
+                $("#is-subdomain").text(a.is_subdomain ? "Yes" : "No");
+                $("#is-public-suffix").text(a.is_public_suffix ? "Yes" : "No");
+                $("#result").css("display", "inline")
+            }
+            function displayError(b, a) {
+                $("#error-message").text(b.readyState !== 4 ? "We are unable to talk to the server." : a === "parsererror" ? "We are talking to the wrong server." : "Something is wrong. Refresh the page.");
+                $("#failure").css("display", "inline")
+            }
+        </script>
+    </head>
+    <body>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="" class="brand-logo center">G-Parse</a>
+                </div>
+            </nav>
+        </div>
+        <div id="superset" class="row">
+            <div class="card-panel hoverable col m6 s10 offset-m3 offset-s1">
+                <div class="row input-field col s12">
+                    <i class="material-icons prefix">language</i>
+                    <input id="url" name="url" type="text">
+                    <label for="url">URL</label>
+                </div>
+                <div class="row col s12">
+                    <button id="submit" class="btn">Submit</button>
+                </div>
+            </div>
+            <div id="result" class="card-panel hoverable col m6 s10 offset-m3 offset-s1">
+                <table class="centered responsive-table striped">
+                    <tr>
+                        <td>Scheme</td>
+                        <td>
+                            <code id="scheme"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td>
+                            <code id="username"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>
+                            <code id="password"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hostname</td>
+                        <td>
+                            <code id="hostname"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Port</td>
+                        <td>
+                            <code id="port"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Path</td>
+                        <td>
+                            <code id="path"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Query</td>
+                        <td>
+                            <code id="query"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Anchor</td>
+                        <td>
+                            <code id="anchor"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Domain</td>
+                        <td>
+                            <code id="domain"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Public Suffix</td>
+                        <td>
+                            <code id="public-suffix"></code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rulable?</td>
+                        <td id="is-rulable"></td>
+                    </tr>
+                    <tr>
+                        <td>Sub-Domain?</td>
+                        <td id="is-subdomain"></td>
+                    </tr>
+                    <tr>
+                        <td>Public Suffix?</td>
+                        <td id="is-public-suffix"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="failure" class="card-panel hoverable col m6 s10 offset-m3 offset-s1">
+                <p id="error-message"></p>
+            </div>
+        </div>
+    </body>
+</html>
+
