@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://gitlab.com/ankitpati/eparse/issues"
   },
-  "homepage": "https://gitlab.com/ankitpati/eparse#readme"
+  "homepage": "https://gitlab.com/ankitpati/eparse#readme",
+  "devDependencies": {
+    "electron": "^7.1.7"
+  }
 }
