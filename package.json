@@ -1,0 +1,26 @@
+{
+  "name": "eparse",
+  "version": "1.0.0",
+  "description": "G-Parse in an Electron app.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ankitpati/eparse.git"
+  },
+  "keywords": [
+    "gparse",
+    "PSL",
+    "public",
+    "suffix",
+    "list"
+  ],
+  "author": "Ankit Pati",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/ankitpati/eparse/issues"
+  },
+  "homepage": "https://gitlab.com/ankitpati/eparse#readme"
+}
