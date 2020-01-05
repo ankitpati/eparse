@@ -1,5 +1,5 @@
 {
-  "name": "eparse",
+  "name": "E-Parse",
   "version": "1.0.0",
   "description": "G-Parse in an Electron app.",
   "main": "index.js",
