@@ -6,7 +6,6 @@ function createWindow() {
     win = new BrowserWindow({
         width: 800,
         height: 600,
-        frame: false,
         webPreferences: {
             enableRemoteModule: false,
             nodeIntegration: false,
@@ -15,6 +14,7 @@ function createWindow() {
         }
     });
 
+    win.removeMenu();
     win.maximize();
 
     win.loadFile('index.html');
