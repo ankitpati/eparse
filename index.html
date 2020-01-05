@@ -3,6 +3,7 @@
     <head>
         <title>G-Parse</title>
         <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; navigate-to 'self'; style-src https://fonts.googleapis.com/css https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css 'sha256-4faEk/oFTGXlYWx/uWJNIDP4IZIuCViyUtxxlxovlA0='; img-src data:; font-src https://fonts.googleapis.com https://fonts.gstatic.com; connect-src https://gparse.ankitpati.in; script-src https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js 'sha256-rUdlRpPqETFuQvfXkdK2GYhpWbOsiRQwePjd7jW8Zvg='; base-uri 'none'; form-action 'none'">
         <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PGcgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBkYXRhLW5hbWU9Imdsb2JlIj48cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHRyYW5zZm9ybT0icm90YXRlKDE4MCAxMiAxMikiIG9wYWNpdHk9IjAiLz48cGF0aCBkPSJNMjIgMTJBMTAgMTAgMCAwIDAgMTIgMmExMCAxMCAwIDAgMCAwIDIwIDEwIDEwIDAgMCAwIDEwLTEwem0tMi4wNy0xSDE3YTEyLjkxIDEyLjkxIDAgMCAwLTIuMzMtNi41NEE4IDggMCAwIDEgMTkuOTMgMTF6TTkuMDggMTNIMTVhMTEuNDQgMTEuNDQgMCAwIDEtMyA2LjYxQTExIDExIDAgMCAxIDkuMDggMTN6bTAtMkExMS40IDExLjQgMCAwIDEgMTIgNC40YTExLjE5IDExLjE5IDAgMCAxIDMgNi42em0uMzYtNi41N0ExMy4xOCAxMy4xOCAwIDAgMCA3LjA3IDExaC0zYTggOCAwIDAgMSA1LjM3LTYuNTd6TTQuMDcgMTNoM2ExMi44NiAxMi44NiAwIDAgMCAyLjM1IDYuNTZBOCA4IDAgMCAxIDQuMDcgMTN6bTEwLjU1IDYuNTVBMTMuMTQgMTMuMTQgMCAwIDAgMTcgMTNoMi45NWE4IDggMCAwIDEtNS4zMyA2LjU1eiIvPjwvZz48L2c+PC9zdmc+">
         <meta name="Description" content="Split URLs like email clients; extract rulable domains thereof.">
         <meta name="theme-color" content="#009688">
@@ -136,7 +137,7 @@
                 }
                 $.ajax({
                     type: "GET",
-                    url: "/" + encodeURIComponent(decodedURL),
+                    url: "https://gparse.ankitpati.in/" + encodeURIComponent(decodedURL),
                     dataType: "json",
                     success: displayResult,
                     error: displayError
