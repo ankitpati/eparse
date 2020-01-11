@@ -1,4 +1,4 @@
-const { app, session, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('electron');
 
 let win;
 
@@ -26,17 +26,17 @@ function createWindow() {
 
 app.on('web-contents-created', (event, contents) => {
     /* <webview>s disallowed */
-    contents.on('will-attach-webview', (event, webPreferences, params) => {
+    contents.on('will-attach-webview', (event) => {
         event.preventDefault();
     });
 
     /* navigation disallowed */
-    contents.on('will-navigate', (event, navigationUrl) => {
+    contents.on('will-navigate', (event) => {
         event.preventDefault();
     });
 
     /* new windows disallowed */
-    contents.on('new-window', (event, navigationUrl) => {
+    contents.on('new-window', (event) => {
         event.preventDefault();
     });
 });
