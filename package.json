@@ -4,7 +4,8 @@
   "description": "G-Parse in an Electron app.",
   "main": "index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,23 @@
     "url": "https://gitlab.com/ankitpati/eparse/issues"
   },
   "homepage": "https://gitlab.com/ankitpati/eparse#readme",
+  "build": {
+    "appId": "in.ankitpati.${name}",
+    "productName": "${name}",
+    "copyright": "Copyright © 2019 ${author}",
+    "linux": {
+      "executableName": "${name}",
+      "desktop": {
+        "Name": "${name}",
+        "Exec": "${name}",
+        "Type": "Application",
+        "Categories": "Electron;Utility"
+      }
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    }
+  },
   "devDependencies": {
     "electron": "^7.1.7",
     "electron-builder": "^22.3.2",
