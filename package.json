@@ -26,17 +26,8 @@
   "homepage": "https://gitlab.com/ankitpati/eparse#readme",
   "build": {
     "appId": "in.ankitpati.${name}",
-    "productName": "${name}",
+    "productName": "E-Parse",
     "copyright": "Copyright © 2019 ${author}",
-    "linux": {
-      "executableName": "${name}",
-      "desktop": {
-        "Name": "${name}",
-        "Exec": "${name}",
-        "Type": "Application",
-        "Categories": "Electron;Utility"
-      }
-    },
     "mac": {
       "category": "public.app-category.utilities"
     }
