@@ -13,11 +13,14 @@
     "url": "git+https://gitlab.com/ankitpati/eparse.git"
   },
   "keywords": [
-    "gparse",
     "PSL",
+    "electron",
+    "eparse",
+    "gparse",
+    "list",
     "public",
-    "suffix",
-    "list"
+    "spectron",
+    "suffix"
   ],
   "author": "Ankit Pati",
   "license": "GPL-3.0-or-later",
